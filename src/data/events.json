@@ -1,0 +1,189 @@
+[
+  {
+    "id": "1",
+    "title": "HIIT Blast",
+    "category": "HIIT",
+    "time": "2025-08-01T10:00:00",
+    "image": "/images/hiit.jpg",
+    "price": 15,
+    "spotsAvailable": 8,
+    "trainers": [
+      {
+        "id": "t1",
+        "name": "Alex Morgan",
+        "avatar": "/images/trainers/alex.jpg",
+        "role": "Coach"
+      },
+      {
+        "id": "t2",
+        "name": "Jamie Lee",
+        "avatar": "/images/trainers/jamie.jpg",
+        "role": "Assistant"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Yoga Flow",
+    "category": "Yoga",
+    "time": "2025-08-01T12:00:00",
+    "image": "/images/yoga.jpg",
+    "price": 0,
+    "spotsAvailable": 3,
+    "trainers": [
+      {
+        "id": "t3",
+        "name": "Sofia Chen",
+        "avatar": "/images/trainers/sofia.jpg",
+        "role": "Instructor"
+      },
+      {
+        "id": "t4",
+        "name": "Liam Patel",
+        "avatar": "/images/trainers/liam.jpg",
+        "role": "Assistant"
+      },
+      {
+        "id": "t5",
+        "name": "Emma Johnson",
+        "avatar": "/images/trainers/emma.jpg",
+        "role": "Substitute"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Spin Class",
+    "category": "Spin",
+    "time": "2025-08-02T09:00:00",
+    "image": "/images/spin.jpg",
+    "price": 10,
+    "spotsAvailable": 0,
+    "trainers": [
+      {
+        "id": "t6",
+        "name": "Noah Smith",
+        "avatar": "/images/trainers/noah.jpg",
+        "role": "Coach"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Zumba Party",
+    "time": "2025-08-02T11:00:00",
+    "image": "/images/zumba.jpg",
+    "price": 12,
+    "spotsAvailable": 5,
+    "trainers": [
+      {
+        "id": "t7",
+        "name": "Olivia Brown",
+        "avatar": "/images/trainers/olivia.jpg",
+        "role": "Instructor"
+      },
+      {
+        "id": "t8",
+        "name": "Ethan Davis",
+        "avatar": "/images/trainers/ethan.jpg",
+        "role": "Assistant"
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Pilates Core",
+    "time": "2025-08-03T14:00:00",
+    "image": "/images/pilates.jpg",
+    "price": 8,
+    "spotsAvailable": 10,
+    "trainers": [
+      {
+        "id": "t9",
+        "name": "Mia Wilson",
+        "avatar": "/images/trainers/mia.jpg",
+        "role": "Instructor"
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "title": "Boxing Basics",
+    "category": "Boxing",
+    "time": "2025-08-03T16:00:00",
+    "image": "/images/boxing.jpg",
+    "price": 20,
+    "spotsAvailable": 2,
+    "trainers": [
+      {
+        "id": "t10",
+        "name": "James Lee",
+        "avatar": "/images/trainers/james.jpg",
+        "role": "Coach"
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "title": "CrossFit Challenge",
+    "category": "CrossFit",
+    "time": "2025-08-04T08:00:00",
+    "image": "/images/crossfit.jpg",
+    "price": 18,
+    "spotsAvailable": 4,
+    "trainers": [
+      {
+        "id": "t1",
+        "name": "Alex Morgan",
+        "avatar": "/images/trainers/alex.jpg",
+        "role": "Coach"
+      },
+      {
+        "id": "t2",
+        "name": "Jamie Lee",
+        "avatar": "/images/trainers/jamie.jpg",
+        "role": "Assistant"
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "title": "Dance Cardio",
+    "category": "Dance",
+    "time": "2025-08-04T10:00:00",
+    "image": "/images/dance.jpg",
+    "price": 15,
+    "spotsAvailable": 6,
+    "trainers": [
+      {
+        "id": "t11",
+        "name": "Sophia Turner",
+        "avatar": "/images/trainers/sophia.jpg",
+        "role": "Instructor"
+      },
+      {
+        "id": "t12",
+        "name": "Liam Johnson",
+        "avatar": "/images/trainers/liam.jpg",
+        "role": "Assistant"
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "title": "Strength Training",
+    "category": "Strength",
+    "time": "2025-08-05T13:00:00",
+    "image": "/images/placeholder.jpg",
+    "price": 10,
+    "spotsAvailable": 12,
+    "trainers": [
+      {
+        "id": "t13",
+        "name": "Ava Martinez",
+        "avatar": "/images/trainers/ava.jpg",
+        "role": "Instructor"
+      }
+    ]
+  }
+]
