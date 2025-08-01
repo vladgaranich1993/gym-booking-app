@@ -1,9 +1,11 @@
-// src/components/Navbar.tsx
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useUser } from '@/lib/useUser';
+import { signOut } from 'firebase/auth';
+import { auth } from '@/lib/firebaseClient';
 
 const links = [
   { name: 'Home', href: '/' },
@@ -50,7 +52,21 @@ function CloseIcon({ className }: { className?: string }) {
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+  const { user, isLoading, refresh } = useUser();
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/sessionLogout', { method: 'POST' });
+      await signOut(auth);
+    } catch {
+      console.error('Logout failed');
+    }
+    await refresh?.();
+    router.push('/login');
+    setOpen(false);
+  };
 
   return (
     <nav className="bg-white shadow sticky top-0 z-50">
@@ -95,18 +111,33 @@ export default function Navbar() {
 
           {/* Desktop actions */}
           <div className="hidden md:flex items-center gap-4">
-            <Link
-              href="/login"
-              className="text-sm font-medium text-gray-700 hover:text-indigo-600"
-            >
-              Login
-            </Link>
-            <Link
-              href="/signup"
-              className="text-sm font-semibold px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
-            >
-              Sign up
-            </Link>
+            {isLoading ? (
+              <div className="text-sm text-gray-500">Checking...</div>
+            ) : user ? (
+              <>
+                <button
+                  onClick={handleLogout}
+                  className="text-sm font-medium px-3 py-1 border rounded hover:bg-gray-100"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="text-sm font-medium text-gray-700 hover:text-indigo-600"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/signup"
+                  className="text-sm font-semibold px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+                >
+                  Sign up
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile toggle */}
@@ -146,20 +177,35 @@ export default function Navbar() {
               );
             })}
             <div className="flex gap-2 px-3 pt-2">
-              <Link
-                href="/login"
-                className="flex-1 text-sm font-medium text-gray-700 hover:text-indigo-600"
-                onClick={() => setOpen(false)}
-              >
-                Login
-              </Link>
-              <Link
-                href="/signup"
-                className="flex-1 text-center text-sm font-semibold px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
-                onClick={() => setOpen(false)}
-              >
-                Sign up
-              </Link>
+              {isLoading ? (
+                <div className="flex-1 text-sm text-gray-500">Checking...</div>
+              ) : user ? (
+                <>
+                  <button
+                    onClick={handleLogout}
+                    className="flex-1 text-center text-sm font-semibold px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="flex-1 text-sm font-medium text-gray-700 hover:text-indigo-600"
+                    onClick={() => setOpen(false)}
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="flex-1 text-center text-sm font-semibold px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+                    onClick={() => setOpen(false)}
+                  >
+                    Sign up
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}
