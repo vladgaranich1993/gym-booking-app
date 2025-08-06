@@ -28,5 +28,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/protected/:path*'], // adjust to your protected paths
+  matcher: ['/protected/:path*'],
 };
