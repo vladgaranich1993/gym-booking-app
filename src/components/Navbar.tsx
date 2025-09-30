@@ -100,6 +100,14 @@ export default function Navbar() {
             <Link
               href="/"
               className="flex items-center gap-2 text-2xl font-bold text-indigo-600"
+              onClick={(e) => {
+                setSearch('');
+                setSearching && setSearching(false);
+                if (pathname === '/') {
+                  router.replace('/');
+                }
+              }}
+              prefetch={true}
             >
               <span className="sr-only">GymBook</span>
               <div className="w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white">
