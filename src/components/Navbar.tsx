@@ -109,8 +109,8 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Search bar */}
-          <div className="relative flex-1 mx-4 max-w-xs">
+          {/* Search bar (desktop only) */}
+          <div className="relative flex-1 mx-4 max-w-xs hidden md:block">
             <input
               type="text"
               value={search}
@@ -118,7 +118,7 @@ export default function Navbar() {
               onFocus={() => setShowResults(true)}
               onBlur={() => setTimeout(() => setShowResults(false), 150)}
               placeholder="Search events..."
-              className="w-full px-3 py-2 border-1 border-indigo-600 rounded focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-indigo-500/100 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             {showResults && filteredEvents.length > 0 && (
               <div className="absolute left-0 right-0 mt-2 bg-white border rounded shadow-lg z-50 max-h-80 overflow-y-auto">
@@ -215,6 +215,39 @@ export default function Navbar() {
         {/* Mobile menu */}
         {open && (
           <div className="md:hidden mt-2 border-t border-gray-300 pt-4 pb-4 space-y-2">
+            {/* Search bar (mobile only) */}
+            <div className="relative mb-2">
+              <input
+                type="text"
+                value={search}
+                onChange={handleSearchChange}
+                onFocus={() => setShowResults(true)}
+                onBlur={() => setTimeout(() => setShowResults(false), 150)}
+                placeholder="Search events..."
+                className="w-full px-3 py-2 border border-indigo-500/100 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              {showResults && filteredEvents.length > 0 && (
+                <div className="absolute left-0 right-0 mt-2 bg-white border rounded shadow-lg z-50 max-h-80 overflow-y-auto">
+                  {filteredEvents.map((event) => (
+                    <div key={event.id} className="p-2 hover:bg-gray-100 cursor-pointer">
+                      <Link href={`/events/${event.id}`} onClick={() => setShowResults(false)}>
+                        <div className="flex items-center gap-2">
+                          <img src={event.image || '/placeholder.jpg'} alt={event.title} className="w-10 h-10 object-cover rounded" />
+                          <div>
+                            <div className="font-medium text-sm">{event.title}</div>
+                            <div className="text-xs text-gray-500">{event.category}</div>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                  {filteredEvents.length === 0 && (
+                    <div className="p-2 text-gray-500 text-sm">No events found.</div>
+                  )}
+                </div>
+              )}
+            </div>
+
             {links.map((l) => {
               const active = pathname === l.href;
               return (

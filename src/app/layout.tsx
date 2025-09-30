@@ -10,9 +10,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-gray-80 min-h-screen">
         <ReactQueryProvider>
           <SearchProvider>
-            <Navbar />
-            <main className="container mx-auto p-6">{children}</main>
-            <Footer />
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="container mx-auto p-6 flex-grow">{children}</main>
+              <Footer />
+            </div>
           </SearchProvider>
         </ReactQueryProvider>
       </body>
