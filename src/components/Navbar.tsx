@@ -2,10 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useUser } from '@/lib/useUser';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebaseClient';
+import { useEvents } from '@/hooks/useEvents';
+import { useSearch } from '@/providers/SearchProvider';
 
 const links = [
   { name: 'Home', href: '/' },
@@ -55,6 +57,27 @@ export default function Navbar() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const { user, isLoading, refresh } = useUser();
+  const { search, setSearch, setSearching } = useSearch();
+  const [showResults, setShowResults] = useState(false);
+  const { data: events = [] } = useEvents();
+  const typingTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    setSearching(true);
+    if (typingTimeout.current) clearTimeout(typingTimeout.current);
+    typingTimeout.current = setTimeout(() => {
+      setSearching(false);
+    }, 400);
+    setShowResults(true);
+  };
+
+  const filteredEvents =
+    search.trim().length > 0
+      ? events.filter((e) =>
+          e.title.toLowerCase().includes(search.toLowerCase())
+        )
+      : [];
 
   const handleLogout = async () => {
     try {
@@ -84,6 +107,39 @@ export default function Navbar() {
               </div>
               <span>GymBook</span>
             </Link>
+          </div>
+
+          {/* Search bar */}
+          <div className="relative flex-1 mx-4 max-w-xs">
+            <input
+              type="text"
+              value={search}
+              onChange={handleSearchChange}
+              onFocus={() => setShowResults(true)}
+              onBlur={() => setTimeout(() => setShowResults(false), 150)}
+              placeholder="Search events..."
+              className="w-full px-3 py-2 border-1 border-indigo-600 rounded focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            />
+            {showResults && filteredEvents.length > 0 && (
+              <div className="absolute left-0 right-0 mt-2 bg-white border rounded shadow-lg z-50 max-h-80 overflow-y-auto">
+                {filteredEvents.map((event) => (
+                  <div key={event.id} className="p-2 hover:bg-gray-100 cursor-pointer">
+                    <Link href={`/events/${event.id}`} onClick={() => setShowResults(false)}>
+                      <div className="flex items-center gap-2">
+                        <img src={event.image || '/placeholder.jpg'} alt={event.title} className="w-10 h-10 object-cover rounded" />
+                        <div>
+                          <div className="font-medium text-sm">{event.title}</div>
+                          <div className="text-xs text-gray-500">{event.category}</div>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+                {filteredEvents.length === 0 && (
+                  <div className="p-2 text-gray-500 text-sm">No events found.</div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Desktop links */}
